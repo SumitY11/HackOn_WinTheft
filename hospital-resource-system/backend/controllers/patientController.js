@@ -1,9 +1,34 @@
 const Patient = require("../models/Patient")
+const Bed = require("../models/Bed")
 
+
+// Create Patient
 exports.createPatient = async (req,res)=>{
+
  try{
 
   const patient = new Patient(req.body)
+
+  // if patient is critical allocate ICU bed
+  if(patient.priority === "Critical"){
+
+   const bed = await Bed.findOne({
+    type:"ICU",
+    status:"Available"
+   })
+
+   if(bed){
+
+    bed.status = "Occupied"
+    bed.assignedPatient = patient._id
+
+    await bed.save()
+
+    patient.assignedBed = bed.bedNumber
+
+   }
+
+  }
 
   await patient.save()
 
@@ -14,6 +39,7 @@ exports.createPatient = async (req,res)=>{
   res.status(500).json({error:err.message})
 
  }
+
 }
 
 exports.getPatients = async (req,res)=>{
