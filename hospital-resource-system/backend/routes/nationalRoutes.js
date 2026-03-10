@@ -1,7 +1,12 @@
 const router = require("express").Router()
 
-const { getNationalDashboard } = require("../controllers/nationalController")
+const {
+ getNationalDashboard,
+ getHospitalMapData
+} = require("../controllers/nationalController")
 
 router.get("/dashboard", getNationalDashboard)
+
+router.get("/hospital-map", getHospitalMapData)
 
 module.exports = router

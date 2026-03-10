@@ -3,6 +3,7 @@ const Patient = require("../models/Patient")
 const Bed = require("../models/Bed")
 const Equipment = require("../models/Equipment")
 
+// NATIONAL DASHBOARD
 exports.getNationalDashboard = async (req,res)=>{
 
  try{
@@ -57,9 +58,7 @@ exports.getNationalDashboard = async (req,res)=>{
     const capacity = (availableBeds / totalHospitalBeds) * 100
 
     if(capacity < 20){
-
      alerts.push(`⚠ ICU capacity low at ${hospital.name}`)
-
     }
 
    }
@@ -77,6 +76,73 @@ exports.getNationalDashboard = async (req,res)=>{
    oxygenUnitsAvailable,
    alerts
   })
+
+ }catch(err){
+
+  res.status(500).json({error:err.message})
+
+ }
+
+}
+
+
+// HOSPITAL MAP DATA
+exports.getHospitalMapData = async (req,res)=>{
+
+ try{
+
+  const hospitals = await Hospital.find()
+
+  const mapData = []
+
+  for(const hospital of hospitals){
+
+   const totalBeds = await Bed.countDocuments({
+    hospital: hospital._id
+   })
+
+   const availableBeds = await Bed.countDocuments({
+    hospital: hospital._id,
+    status:"Available"
+   })
+
+   const icuAvailable = await Bed.countDocuments({
+    hospital: hospital._id,
+    type:"ICU",
+    status:"Available"
+   })
+
+   const ventilators = await Equipment.countDocuments({
+    hospital: hospital._id,
+    type:"Ventilator",
+    status:"Available"
+   })
+
+   let loadStatus = "Green"
+
+   if(availableBeds === 0){
+    loadStatus = "Red"
+   }
+   else if((availableBeds/totalBeds) < 0.3){
+    loadStatus = "Yellow"
+   }
+
+   mapData.push({
+    hospitalId: hospital._id,
+    name: hospital.name,
+    location: hospital.location,
+    latitude: hospital.latitude,
+    longitude: hospital.longitude,
+    totalBeds,
+    availableBeds,
+    icuAvailable,
+    ventilators,
+    loadStatus
+   })
+
+  }
+
+  res.json(mapData)
 
  }catch(err){
 
