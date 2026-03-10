@@ -10,6 +10,7 @@ const equipmentRoutes = require("./routes/equipmentRoutes")
 const dashboardRoutes = require("./routes/dashboardRoutes")
 const emergencyRoutes = require("./routes/emergencyRoutes")
 const hospitalRoutes = require("./routes/hospitalRoutes")
+const nationalRoutes = require("./routes/nationalRoutes")
 
 const connectDB = require("./config/db")
 
@@ -29,6 +30,7 @@ app.use("/api/equipment", equipmentRoutes)
 app.use("/api/dashboard", dashboardRoutes)
 app.use("/api/emergency", emergencyRoutes)
 app.use("/api/hospitals", hospitalRoutes)
+app.use("/api/national", nationalRoutes)
 
 // test route
 app.get("/", (req,res)=>{
