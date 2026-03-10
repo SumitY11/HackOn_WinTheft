@@ -10,13 +10,22 @@ dotenv.config()
 
 const app = express()
 
+// connect database
 connectDB()
 
+// middleware
 app.use(cors())
 app.use(express.json())
 
+// test route
+app.get("/", (req,res)=>{
+ res.send("Hospital API Running")
+})
+
+// create HTTP server
 const server = http.createServer(app)
 
+// socket setup
 const io = new Server(server,{
  cors:{origin:"*"}
 })
@@ -25,10 +34,7 @@ io.on("connection",(socket)=>{
  console.log("Client connected:",socket.id)
 })
 
-app.get("/",(req,res)=>{
- res.send("Hospital Resource API Running")
-})
-
+// start server
 const PORT = process.env.PORT || 5000
 
 server.listen(PORT,()=>{
