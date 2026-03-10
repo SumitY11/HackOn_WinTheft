@@ -8,6 +8,8 @@ const bedRoutes = require("./routes/bedRoutes")
 const patientRoutes = require("./routes/patientRoutes")
 const equipmentRoutes = require("./routes/equipmentRoutes")
 const dashboardRoutes = require("./routes/dashboardRoutes")
+const emergencyRoutes = require("./routes/emergencyRoutes")
+const hospitalRoutes = require("./routes/hospitalRoutes")
 
 const connectDB = require("./config/db")
 
@@ -25,6 +27,8 @@ app.use("/api/patients", patientRoutes)
 app.use("/api/beds", bedRoutes)
 app.use("/api/equipment", equipmentRoutes)
 app.use("/api/dashboard", dashboardRoutes)
+app.use("/api/emergency", emergencyRoutes)
+app.use("/api/hospitals", hospitalRoutes)
 
 // test route
 app.get("/", (req,res)=>{

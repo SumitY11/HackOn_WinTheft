@@ -24,7 +24,13 @@ const BedSchema = new mongoose.Schema({
   type:mongoose.Schema.Types.ObjectId,
   ref:"Patient",
   default:null
- }
+ },
+
+ hospital:{
+ type:mongoose.Schema.Types.ObjectId,
+ ref:"Hospital",
+ required:true
+}
 
 })
 
