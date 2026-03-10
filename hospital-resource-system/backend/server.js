@@ -4,6 +4,9 @@ const dotenv = require("dotenv")
 const http = require("http")
 const { Server } = require("socket.io")
 
+const bedRoutes = require("./routes/bedRoutes")
+const patientRoutes = require("./routes/patientRoutes")
+
 const connectDB = require("./config/db")
 
 dotenv.config()
@@ -16,8 +19,8 @@ connectDB()
 // middleware
 app.use(cors())
 app.use(express.json())
-const patientRoutes = require("./routes/patientRoutes")
 app.use("/api/patients", patientRoutes)
+app.use("/api/beds", bedRoutes)
 
 // test route
 app.get("/", (req,res)=>{
