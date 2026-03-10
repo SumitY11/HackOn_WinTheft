@@ -16,6 +16,8 @@ connectDB()
 // middleware
 app.use(cors())
 app.use(express.json())
+const patientRoutes = require("./routes/patientRoutes")
+app.use("/api/patients", patientRoutes)
 
 // test route
 app.get("/", (req,res)=>{

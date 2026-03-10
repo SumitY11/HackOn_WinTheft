@@ -1,15 +1,15 @@
 const router = require("express").Router()
 
 const {
- addPatient,
+ createPatient,
  getPatients,
  updatePatient
 } = require("../controllers/patientController")
 
-router.post("/",addPatient)
+router.post("/", createPatient)
 
-router.get("/",getPatients)
+router.get("/", getPatients)
 
-router.put("/:id",updatePatient)
+router.put("/:id", updatePatient)
 
 module.exports = router

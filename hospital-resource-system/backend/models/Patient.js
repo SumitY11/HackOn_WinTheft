@@ -21,7 +21,10 @@ const PatientSchema = new mongoose.Schema({
   enum:["Low","Medium","High","Critical"]
  },
 
- assignedBed:String,
+ assignedBed:{
+  type:String,
+  default:null
+ },
 
  admittedAt:{
   type:Date,

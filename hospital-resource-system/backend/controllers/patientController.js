@@ -1,7 +1,6 @@
 const Patient = require("../models/Patient")
 
-exports.addPatient = async (req,res)=>{
-
+exports.createPatient = async (req,res)=>{
  try{
 
   const patient = new Patient(req.body)
@@ -15,12 +14,9 @@ exports.addPatient = async (req,res)=>{
   res.status(500).json({error:err.message})
 
  }
-
 }
 
-
 exports.getPatients = async (req,res)=>{
-
  try{
 
   const patients = await Patient.find()
@@ -32,12 +28,9 @@ exports.getPatients = async (req,res)=>{
   res.status(500).json({error:err.message})
 
  }
-
 }
 
-
 exports.updatePatient = async (req,res)=>{
-
  try{
 
   const patient = await Patient.findByIdAndUpdate(
@@ -53,5 +46,4 @@ exports.updatePatient = async (req,res)=>{
   res.status(500).json({error:err.message})
 
  }
-
 }
