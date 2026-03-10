@@ -7,6 +7,7 @@ const { Server } = require("socket.io")
 const bedRoutes = require("./routes/bedRoutes")
 const patientRoutes = require("./routes/patientRoutes")
 const equipmentRoutes = require("./routes/equipmentRoutes")
+const dashboardRoutes = require("./routes/dashboardRoutes")
 
 const connectDB = require("./config/db")
 
@@ -23,6 +24,7 @@ app.use(express.json())
 app.use("/api/patients", patientRoutes)
 app.use("/api/beds", bedRoutes)
 app.use("/api/equipment", equipmentRoutes)
+app.use("/api/dashboard", dashboardRoutes)
 
 // test route
 app.get("/", (req,res)=>{
